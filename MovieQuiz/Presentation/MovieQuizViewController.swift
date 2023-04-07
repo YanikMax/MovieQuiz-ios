@@ -118,7 +118,7 @@ final class MovieQuizViewController: UIViewController {
             correctAnswers += 1
         }
         
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 20 //скругление рамок постера при ответе
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
         if isCorrect {
