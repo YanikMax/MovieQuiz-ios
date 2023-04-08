@@ -7,6 +7,9 @@ final class MovieQuizViewController: UIViewController {
         let firstQuestion = questions[currentQuestionIndex]
         let viewModel = convert(model: firstQuestion)
         show(quiz: viewModel)
+        
+        imageView.layer.cornerRadius = 20 //скругление рамок постера при ответе
+        imageView.layer.masksToBounds = true
     }
     
     private struct QuizQuestion {
@@ -118,8 +121,6 @@ final class MovieQuizViewController: UIViewController {
             correctAnswers += 1
         }
         
-        imageView.layer.cornerRadius = 20 //скругление рамок постера при ответе
-        imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
         if isCorrect {
             imageView.layer.borderColor = UIColor.ypGreen.cgColor
@@ -169,9 +170,4 @@ final class MovieQuizViewController: UIViewController {
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-    private let alert = UIAlertController(
-        title: "Этот раунд окончен!",
-        message: "Ваш результат ???",
-        preferredStyle: .alert)
 }
