@@ -3,7 +3,7 @@ import Foundation
 protocol StatisticService {
     var totalAccuracy: Double { get }
     var gamesCount: Int { get }
-    var bestGame: GameRecord { get set } //здесь указал дополнительно set для сохранения значения
+    var bestGame: GameRecord { get set }
     
     func store(correct count: Int, total amount: Int)
 }
@@ -11,11 +11,23 @@ protocol StatisticService {
 final class StatisticServiceImplementation: StatisticService {
     private let userDefaults = UserDefaults.standard
     private enum Keys: String {
-        case correct, total, bestGame, gamesCount
+        case correct, total, bestGame, gamesCount, totalAccuracy
     }
     
-    private var _totalAccuracy: Double = 0.0
-    private var _gamesCount: Int = 0
+    private var _totalAccuracy: Double
+    private var _gamesCount: Int
+    private var _bestGame: GameRecord
+    
+    init() {
+        self._totalAccuracy = userDefaults.double(forKey: Keys.totalAccuracy.rawValue)
+        self._gamesCount = userDefaults.integer(forKey: Keys.gamesCount.rawValue)
+        if let data = userDefaults.data(forKey: Keys.bestGame.rawValue),
+           let bestGame = try? JSONDecoder().decode(GameRecord.self, from: data) {
+            self._bestGame = bestGame
+        } else {
+            self._bestGame = GameRecord(correct: 0, total: 0, date: Date())
+        }
+    }
     
     var totalAccuracy: Double {
         get {
@@ -23,6 +35,7 @@ final class StatisticServiceImplementation: StatisticService {
         }
         set {
             self._totalAccuracy = newValue
+            userDefaults.set(newValue, forKey: Keys.totalAccuracy.rawValue)
         }
     }
     
@@ -32,6 +45,7 @@ final class StatisticServiceImplementation: StatisticService {
         }
         set {
             self._gamesCount = newValue
+            userDefaults.set(newValue, forKey: Keys.gamesCount.rawValue)
         }
     }
     
@@ -55,16 +69,17 @@ final class StatisticServiceImplementation: StatisticService {
     }
     
     func store(correct count: Int, total amount: Int) {
-        let accuracy = Double(count) / Double(amount) * 100.0 //вычисление точности
-        totalAccuracy = (totalAccuracy * Double(gamesCount) + accuracy) / Double(gamesCount + 1) //вычисление средней точности
+        let totalCorrect = Double(userDefaults.integer(forKey: Keys.correct.rawValue)) + Double(count)
+        let totalAmount = Double(userDefaults.integer(forKey: Keys.total.rawValue)) + Double(amount)
+        totalAccuracy = (totalCorrect / totalAmount) * 100 // вычисление средней точности
+        userDefaults.set(Int(totalCorrect), forKey: Keys.correct.rawValue)
+        userDefaults.set(Int(totalAmount), forKey: Keys.total.rawValue)
         gamesCount += 1 //увеличение отыгранных квизов
         let newGameRecord = GameRecord(correct: count, total: amount, date: Date()) //создание нового экземпляра GameRecord
         if bestGame < newGameRecord { //здесь происходит проверка на результат и если он лучше, то сохраняем его в bestGame
             bestGame = newGameRecord
         }
-        let formattedAccuracy = String(format: "%.2f", accuracy)
     }
-    
 }
 
 struct GameRecord: Codable {

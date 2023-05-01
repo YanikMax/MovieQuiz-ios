@@ -17,7 +17,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileName = "inception.json"
         documentsURL.appendPathComponent(fileName)
-        //let jsonString = try? String(contentsOf: documentsURL)
         
         if alertPresenter == nil {
             alertPresenter = ResultAlertPresenter(viewController: self, restartAction: restartQuiz)
@@ -113,7 +112,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             let bestGame = statisticService.bestGame //лучшая игра
             let date = bestGame.date.dateTimeString //форматирование даты игры
             let gamesCount = statisticService.gamesCount //количество сыгранных квизов
-            let formattedAccuracy = statisticService.totalAccuracy //средняя точность
+            let formattedAccuracy = (String(format: "%.2f", statisticService.totalAccuracy)) //средняя точность
 
             let message = "Ваш результат: \(correctAnswers)/10\nКоличество сыгранных квизов: \(gamesCount)\nРекорд: \(bestGame.correct)/10 (\(date))\nСредняя точность: \(formattedAccuracy)%"
 

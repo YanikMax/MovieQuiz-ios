@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class ResultAlertPresenter: AlertProtocol {
-    private let viewController: UIViewController
+    private weak var viewController: UIViewController?
     private let restartAction: (() -> Void)?
     
     init(viewController: UIViewController, restartAction: (() -> Void)? = nil) {
@@ -22,6 +22,6 @@ class ResultAlertPresenter: AlertProtocol {
         
         alert.addAction(action)
         
-        self.viewController.present(alert, animated: true, completion: nil)
+        self.viewController?.present(alert, animated: true, completion: nil)
     }
 }
