@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28287D6B2A071CFE001ED763 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28287D6A2A071CFE001ED763 /* NetworkClient.swift */; };
+		28287D6D2A071EB2001ED763 /* MostPopularMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28287D6C2A071EB2001ED763 /* MostPopularMovies.swift */; };
+		28287D6F2A071F20001ED763 /* MoviesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28287D6E2A071F20001ED763 /* MoviesLoader.swift */; };
 		287CE4A729D6399D00A50AA9 /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 287CE4A529D6399D00A50AA9 /* YS Display-Medium.ttf */; };
 		287CE4A829D6399D00A50AA9 /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 287CE4A629D6399D00A50AA9 /* YS Display-Bold.ttf */; };
 		28CEC28829FAA46000F22471 /* AlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CEC28729FAA45F00F22471 /* AlertProtocol.swift */; };
@@ -31,6 +34,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28287D6A2A071CFE001ED763 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		28287D6C2A071EB2001ED763 /* MostPopularMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostPopularMovies.swift; sourceTree = "<group>"; };
+		28287D6E2A071F20001ED763 /* MoviesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesLoader.swift; sourceTree = "<group>"; };
 		287CE4A529D6399D00A50AA9 /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Medium.ttf"; sourceTree = "<group>"; };
 		287CE4A629D6399D00A50AA9 /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
 		28CEC28729FAA45F00F22471 /* AlertProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProtocol.swift; sourceTree = "<group>"; };
@@ -83,6 +89,8 @@
 				28EDF02129EFAF5E00661B15 /* QuestionFactoryProtocol.swift */,
 				28EDF02329F0615900661B15 /* QuestionFactoryDelegate.swift */,
 				28EDF02929F5DA3C00661B15 /* StatisticService.swift */,
+				28287D6A2A071CFE001ED763 /* NetworkClient.swift */,
+				28287D6E2A071F20001ED763 /* MoviesLoader.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -94,6 +102,7 @@
 				28EDF01D29EDE20B00661B15 /* QuizResultsViewModel.swift */,
 				28EDF01F29EDE21A00661B15 /* QuizQuestion.swift */,
 				28EDF02529F0767800661B15 /* AlertModel.swift */,
+				28287D6C2A071EB2001ED763 /* MostPopularMovies.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -237,17 +246,20 @@
 				AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */,
 				28EDF02829F07AC500661B15 /* AlertPresenter.swift in Sources */,
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
+				28287D6D2A071EB2001ED763 /* MostPopularMovies.swift in Sources */,
 				28EDF02229EFAF5E00661B15 /* QuestionFactoryProtocol.swift in Sources */,
 				28EDF02429F0615900661B15 /* QuestionFactoryDelegate.swift in Sources */,
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
 				28EDF01C29EDE1F700661B15 /* QuizStepViewModel.swift in Sources */,
 				28EDF02A29F5DA3C00661B15 /* StatisticService.swift in Sources */,
+				28287D6B2A071CFE001ED763 /* NetworkClient.swift in Sources */,
 				28CEC28829FAA46000F22471 /* AlertProtocol.swift in Sources */,
 				28EDF02029EDE21A00661B15 /* QuizQuestion.swift in Sources */,
 				28EDF02629F0767800661B15 /* AlertModel.swift in Sources */,
 				28EDF01929ED116100661B15 /* QuestionFactory.swift in Sources */,
 				AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */,
 				AD1ABAB22831907B00B3E448 /* AppDelegate.swift in Sources */,
+				28287D6F2A071F20001ED763 /* MoviesLoader.swift in Sources */,
 				28EDF01E29EDE20B00661B15 /* QuizResultsViewModel.swift in Sources */,
 				AD1ABAB42831907B00B3E448 /* SceneDelegate.swift in Sources */,
 			);

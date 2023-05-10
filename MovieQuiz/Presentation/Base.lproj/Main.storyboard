@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -105,6 +105,9 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Hd3-h2-J69">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black"/>
@@ -112,10 +115,13 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="c9W-h5-Sxx" secondAttribute="bottom" id="1ew-UJ-c1t"/>
                             <constraint firstItem="c9W-h5-Sxx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Nr5-9Z-hKN"/>
                             <constraint firstItem="c9W-h5-Sxx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="bTM-wp-Atp"/>
+                            <constraint firstItem="Hd3-h2-J69" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mJV-JR-LtQ"/>
+                            <constraint firstItem="Hd3-h2-J69" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="nDz-jY-i0B"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="c9W-h5-Sxx" secondAttribute="trailing" constant="20" id="qFP-s9-MXd"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="Hd3-h2-J69" id="lkj-gW-g8k"/>
                         <outlet property="counterLabel" destination="VX8-AB-cSQ" id="S4z-vk-Fwi"/>
                         <outlet property="imageView" destination="NS4-oS-NDi" id="bR5-Ho-4Nv"/>
                         <outlet property="noButton" destination="vD3-oE-TlG" id="TjX-BW-J7D"/>
