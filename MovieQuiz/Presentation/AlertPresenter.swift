@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class ResultAlertPresenter: AlertProtocol {
+final class AlertPresenter: AlertPresenterProtocol {
     private weak var viewController: UIViewController?
     private let restartAction: (() -> Void)?
     
@@ -10,13 +10,13 @@ class ResultAlertPresenter: AlertProtocol {
         self.restartAction = restartAction
     }
     
-    func show(quiz result: QuizResultsViewModel) {
+    func show(alertModel: AlertModel) {
         let alert = UIAlertController(
-            title: result.title,
-            message: result.text,
+            title: alertModel.title,
+            message: alertModel.message,
             preferredStyle: .alert)
         
-        let action = UIAlertAction(title: result.buttonText, style: .default) { [weak self] _ in
+        let action = UIAlertAction(title: alertModel.buttonText, style: .default) { [weak self] _ in
             self?.restartAction?()
         }
         
