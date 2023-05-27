@@ -2,10 +2,29 @@ import Foundation
 import UIKit
 
 final class MovieQuizViewController: UIViewController, MovieQuizViewControllerProtocol {
-
+    
+    // MARK: - IBOutlet
+    
+    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet private var textLabel: UILabel!
+    @IBOutlet private var counterLabel: UILabel!
+    @IBOutlet private var yesButton: UIButton!
+    @IBOutlet private var noButton: UIButton!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    
+    // MARK: - IBAction
+    
+    @IBAction private func yesButtonClicked(_ sender: UIButton) {
+        presenter.yesButtonClicked()
+    }
+    
+    @IBAction private func noButtonClicked(_ sender: UIButton) {
+        presenter.noButtonClicked()
+    }
+    
     private var alertPresenter: AlertPresenterProtocol?
     private var presenter: MovieQuizPresenter!
-     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = MovieQuizPresenter(viewController: self)
@@ -17,24 +36,9 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let fileName = "inception.json"
         documentsURL.appendPathComponent(fileName)
-        }
-    
-    // MARK: - QuestionFactoryDelegate
-    
-    @IBOutlet private var imageView: UIImageView!
-    @IBOutlet private var textLabel: UILabel!
-    @IBOutlet private var counterLabel: UILabel!
-    @IBOutlet private var yesButton: UIButton!
-    @IBOutlet private var noButton: UIButton!
-    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
-    
-    @IBAction private func yesButtonClicked(_ sender: UIButton) {
-        presenter.yesButtonClicked()
     }
     
-    @IBAction private func noButtonClicked(_ sender: UIButton) {
-        presenter.noButtonClicked()
-    }
+    // MARK: - Public methods
     
     func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
@@ -55,26 +59,26 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         
         let action = UIAlertAction(title: alertModel.buttonText, style: .default) { [ weak self ] _ in
             guard let self = self else { return }
-                alertModel.completion()
-                
-                self.presenter.restartQuiz()
-            }
+            alertModel.completion()
             
-            alert.addAction(action)
-            self.present(alert, animated: true)
-            
-            alert.view.accessibilityIdentifier = "Game results"
+            self.presenter.restartQuiz()
+        }
+        
+        alert.addAction(action)
+        self.present(alert, animated: true)
+        
+        alert.view.accessibilityIdentifier = "Game results"
     }
     
     func highlightImageBorder(isCorrectAnswer: Bool) {
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
         imageView.layer.borderColor = isCorrectAnswer ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
-       
+        
         yesButton.isEnabled = false
         noButton.isEnabled = false
     }
-        
+    
     func showLoadingIndicator() {
         activityIndicator.isHidden = false // говорим, что инидкатор загрузки не скрыт
         activityIndicator.startAnimating() // включаем анимацию

@@ -15,27 +15,32 @@ protocol MovieQuizViewControllerProtocol: AnyObject {
 
 final class MovieQuizPresenter: QuestionFactoryDelegate {
     
-    private let statisticService: StatisticService!
     private var questionFactory: QuestionFactoryProtocol?
+    private let statisticService: StatisticService!
     private weak var viewController: MovieQuizViewControllerProtocol?
     private var currentQuestion: QuizQuestion?
     private var currentQuestionIndex: Int = 0
-    private let questionsAmount: Int = 10
     private var correctAnswers: Int = 0
+    private let questionsAmount: Int = 10
+    
+    // MARK: - Initializers
     
     init(viewController: MovieQuizViewControllerProtocol) {
         self.viewController = viewController
-        self.viewController?.showLoadingIndicator()
         
         statisticService = StatisticServiceImplementation()
+        
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+        self.viewController?.showLoadingIndicator()
         questionFactory?.loadData()
     }
+    
+    // MARK: - Public methods
     
     func yesButtonClicked() {
         didAnswer(isYes: true)
     }
-
+    
     func noButtonClicked() {
         didAnswer(isYes: false)
     }
@@ -72,7 +77,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         questionFactory?.requestNextQuestion()
         viewController?.hideLoadingIndicator()
     }
-
+    
     func didFailToLoadData(with error: Error) {
         let message = error.localizedDescription
         viewController?.showNetworkError(message: message)
@@ -82,7 +87,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         guard let question = question else {
             return
         }
-
+        
         currentQuestion = question
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
@@ -90,16 +95,18 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
             self?.viewController?.hideLoadingIndicator()
         }
     }
-
+    
+    // MARK: - Private Methods
+    
     private func didAnswer(isYes: Bool) {
         guard let currentQuestion = currentQuestion else {
             return
-    }
-    let givenAnswer = isYes
-    
-    continueWithAnswer(isCorrect: givenAnswer == currentQuestion.correctAnswer)
-}
+        }
+        let givenAnswer = isYes
         
+        continueWithAnswer(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+    }
+    
     private func continueWithAnswer(isCorrect: Bool) {
         didAnswer(isCorrectAnswer: isCorrect)
         viewController?.highlightImageBorder(isCorrectAnswer: isCorrect)
@@ -108,9 +115,9 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
             guard let self = self else { return }
             
             self.showNextQuestionOrResults()
+        }
     }
-}
-
+    
     private func showNextQuestionOrResults() {
         if isLastQuestion() {
             let text = correctAnswers == self.questionsAmount ? "Поздравляем, вы ответили на 10 из 10!" : "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
@@ -136,18 +143,18 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     func resultMessage() -> String {
         statisticService.store(correct: correctAnswers, total: questionsAmount)
-        let bestGame = statisticService.bestGame //лучшая игра
+        let bestGame = statisticService.bestGame
         let date = bestGame.date.dateTimeString //форматирование даты игры
         let gamesCount = statisticService.gamesCount //количество сыгранных квизов
         let formattedAccuracy = (String(format: "%.2f", statisticService.totalAccuracy)) //средняя точность
         let text = "Ваш результат: \(correctAnswers)/10\nКоличество сыгранных квизов: \(gamesCount)\nРекорд: \(bestGame.correct)/10 (\(date))\nСредняя точность: \(formattedAccuracy)%"
-            
+        
         return text
     }
     
     func restartQuiz() {
         self.resetQuestionIndex()
         self.correctAnswers = 0
-        questionFactory?.loadData() // requestNextQuestion()
+        questionFactory?.loadData()
     }
 }
