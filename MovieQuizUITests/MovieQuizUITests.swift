@@ -3,7 +3,7 @@ import XCTest
 final class MovieQuizUITests: XCTestCase {
     
     var app: XCUIApplication!
-
+    
     override func setUpWithError() throws {
         try super.setUpWithError()
         
@@ -12,14 +12,14 @@ final class MovieQuizUITests: XCTestCase {
         
         continueAfterFailure = false
     }
-
+    
     override func tearDownWithError() throws {
         try super.tearDownWithError()
         
         app = nil
         app?.terminate()
     }
-
+    
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
@@ -69,14 +69,14 @@ final class MovieQuizUITests: XCTestCase {
             app.buttons["No"].tap()
             sleep(2)
         }
-
+        
         let alert = app.alerts["Game results"]
         
         XCTAssertTrue(alert.exists)
         XCTAssertTrue(alert.label == "Этот раунд окончен!")
         XCTAssertTrue(alert.buttons.firstMatch.label == "Сыграть ещё раз")
     }
-
+    
     func testAlertDismiss() {
         sleep(2)
         for _ in 1...10 {

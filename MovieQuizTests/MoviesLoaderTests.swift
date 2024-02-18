@@ -5,12 +5,11 @@ import XCTest
 class MoviesLoaderTests: XCTestCase {
     func testSuccessLoading() throws {
         // Given
-        let stubNetworkClient = StubNetworkClient(emulateError: false) // говорим, что не хотим эмулировать ошибку
+        let stubNetworkClient = StubNetworkClient(emulateError: false)
         let loader = MoviesLoader(networkClient: stubNetworkClient)
         
         // When
         
-        // функция загрузки фильмов асинхронная, нужно ожидание
         let expectation = expectation(description: "Loading expectation")
         
         loader.loadMovies { result in
@@ -18,12 +17,10 @@ class MoviesLoaderTests: XCTestCase {
             // Then
             switch result {
             case .success(let movies):
-                // проверим, что пришло 2 фильма, например
                 XCTAssertEqual(movies.items.count, 2)
                 expectation.fulfill()
             case .failure(_):
-                // мы не ожидаем, что произошла ошибка; если она произошла, то нужно провалить тест
-                XCTFail("Unexpected failure") // функция проваливает тест
+                XCTFail("Unexpected failure")
             }
         }
         
@@ -32,7 +29,7 @@ class MoviesLoaderTests: XCTestCase {
     
     func testFailureLoading() throws {
         // Given
-        let stubNetworkClient = StubNetworkClient(emulateError: true) // говорим, что хотим эмулировать ошибку
+        let stubNetworkClient = StubNetworkClient(emulateError: true)
         let loader = MoviesLoader(networkClient: stubNetworkClient)
         
         // When
@@ -52,5 +49,3 @@ class MoviesLoaderTests: XCTestCase {
         waitForExpectations(timeout: 1)
     }
 }
-
-

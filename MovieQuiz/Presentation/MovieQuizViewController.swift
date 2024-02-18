@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
-
+    
     private var statisticService: StatisticService = StatisticServiceImplementation()
     private var alertPresenter: ResultAlertPresenter?
     private let presenter = MovieQuizPresenter()
@@ -16,7 +16,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showLoadingfIndicator()
         questionFactory?.loadData()
         
-        imageView.layer.cornerRadius = 20 //скругление рамок постера при ответе
+        imageView.layer.cornerRadius = 20
         imageView.layer.masksToBounds = true
         
         var documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -98,27 +98,27 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     func showNextQuestionOrResults() {
         if presenter.isLastQuestion() {
             statisticService.store(correct: correctAnswers, total: presenter.questionsAmount)
-            let bestGame = statisticService.bestGame //лучшая игра
-            let date = bestGame.date.dateTimeString //форматирование даты игры
-            let gamesCount = statisticService.gamesCount //количество сыгранных квизов
-            let formattedAccuracy = (String(format: "%.2f", statisticService.totalAccuracy)) //средняя точность
-
+            let bestGame = statisticService.bestGame
+            let date = bestGame.date.dateTimeString
+            let gamesCount = statisticService.gamesCount
+            let formattedAccuracy = (String(format: "%.2f", statisticService.totalAccuracy))
+            
             let message = "Ваш результат: \(correctAnswers)/10\nКоличество сыгранных квизов: \(gamesCount)\nРекорд: \(bestGame.correct)/10 (\(date))\nСредняя точность: \(formattedAccuracy)%"
-
+            
             let viewModel = QuizResultsViewModel(
-            title: "Этот раунд окончен!",
-            text: message,
-            buttonText: "Сыграть еще раз")
+                title: "Этот раунд окончен!",
+                text: message,
+                buttonText: "Сыграть еще раз")
             alertPresenter?.show(quiz: viewModel)
         } else {
             presenter.switchToNextQuestion()
             self.questionFactory?.requestNextQuestion()
-            }
-}
-
+        }
+    }
+    
     private func showLoadingfIndicator() {
-        activityIndicator.isHidden = false // говорим, что инидкатор загрузки не скрыт
-        activityIndicator.startAnimating() // включаем анимацию
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
     }
     
     private func hideLoadingIndicator() {
@@ -136,12 +136,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     func didLoadDataFromServer() {
-        activityIndicator.isHidden = true // скрываем индикатор загрузки
+        activityIndicator.isHidden = true
         questionFactory?.requestNextQuestion()
     }
-
+    
     func didFailToLoadData(with error: Error) {
-        showNetworkError(message: error.localizedDescription) // возьмём в качестве сообщения описание ошибки
+        showNetworkError(message: error.localizedDescription)
     }
     
     private func restartQuiz() {

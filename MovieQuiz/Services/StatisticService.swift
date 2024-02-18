@@ -52,7 +52,7 @@ final class StatisticServiceImplementation: StatisticService {
     var bestGame: GameRecord {
         get {
             guard let data = userDefaults.data(forKey: Keys.bestGame.rawValue),
-            let record = try? JSONDecoder().decode(GameRecord.self, from: data) else {
+                  let record = try? JSONDecoder().decode(GameRecord.self, from: data) else {
                 return .init(correct: 0, total: 0, date: Date())
             }
             return record
@@ -71,12 +71,12 @@ final class StatisticServiceImplementation: StatisticService {
     func store(correct count: Int, total amount: Int) {
         let totalCorrect = Double(userDefaults.integer(forKey: Keys.correct.rawValue)) + Double(count)
         let totalAmount = Double(userDefaults.integer(forKey: Keys.total.rawValue)) + Double(amount)
-        totalAccuracy = (totalCorrect / totalAmount) * 100 // вычисление средней точности
+        totalAccuracy = (totalCorrect / totalAmount) * 100
         userDefaults.set(Int(totalCorrect), forKey: Keys.correct.rawValue)
         userDefaults.set(Int(totalAmount), forKey: Keys.total.rawValue)
-        gamesCount += 1 //увеличение отыгранных квизов
-        let newGameRecord = GameRecord(correct: count, total: amount, date: Date()) //создание нового экземпляра GameRecord
-        if bestGame < newGameRecord { //здесь происходит проверка на результат и если он лучше, то сохраняем его в bestGame
+        gamesCount += 1
+        let newGameRecord = GameRecord(correct: count, total: amount, date: Date())
+        if bestGame < newGameRecord {
             bestGame = newGameRecord
         }
     }
