@@ -31,3 +31,9 @@ MovieQuiz - это приложение с квизами о фильмах из
 - Приложение должно поддерживать устройства iPhone с iOS 13, предусмотрен только портретный режим;
 - Элементы интерфейса адаптируются под разрешения экранов iPhone, начиная с X — вёрстка под SE и iPad не предусмотрена;
 - Экраны соответствует макету — использованы верные шрифты нужных размеров, все надписи находятся на нужном месте, расположение всех элементов, размеры кнопок и отступы — точно такие же, как в макете.
+
+## **Скриншоты**
+![Simulator Screenshot - iPhone 15 - 2024-02-19 at 02 09 23](https://github.com/YanikMax/MovieQuiz-ios/assets/86563656/a6fd72db-6ac9-4e95-9d39-8bf2ef59a6d5)
+![Simulator Screenshot - iPhone 15 - 2024-02-19 at 02 09 34](https://github.com/YanikMax/MovieQuiz-ios/assets/86563656/17bfa112-b115-4524-bedf-799e7bbbefc7)
+![Simulator Screenshot - iPhone 15 - 2024-02-19 at 02 09 11](https://github.com/YanikMax/MovieQuiz-ios/assets/86563656/dbdeb48b-e127-46fb-93ee-2f3156f65571)
+
